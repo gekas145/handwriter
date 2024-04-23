@@ -1,11 +1,11 @@
 # handwriter
 
-This repo contains implementation of deep recurrent network trained to generat human-like handwriting. 
+This repo contains implementation of deep recurrent network trained to generate human-like handwriting. 
 
 The idea is heavily based on [1], but some things were simplified:
-1. Network predicted exact (x, y) coordinates of next point and probability of stroke, thus having the output dimension 3.
+1. Network predicted exact (x, y) offset coordinates of next point and probability of stroke, thus having the output dimension 3.
 
-2. L2 loss is used instead of mixed density loss, because of greater numerical stability and faster calculation.
+2. L2 loss for coordinates + entropy loss were used instead of mixed density loss, because of greater numerical stability and faster calculation.
 
 3. Network was trained only on subset of available data and had 2(instead of 3) LSTM layers.
 
