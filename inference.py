@@ -2,7 +2,7 @@ import numpy as np
 import config as c
 import tensorflow as tf
 from tensorflow import keras
-from network import process_output3, process_output2
+from network import process_output2
 from dataset import plot_writing, load_data_from_folder, OnlineHandwritingDataset
 
 # unzip the model first
