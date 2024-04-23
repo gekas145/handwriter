@@ -19,10 +19,10 @@ The trained model is stored under `model/model.zip`.
 
 References:
 
-[1] Graves A. [https://arxiv.org/pdf/1308.0850.pdf](https://arxiv.org/pdf/1308.0850.pdf)
+[1] Graves A., "Generating Sequences With Recurrent Neural Networks", [https://arxiv.org/pdf/1308.0850.pdf](https://arxiv.org/pdf/1308.0850.pdf)
 
 [2] Liwicki M. and Bunke H., "IAM-onDB - an on-line English sentence database acquired from handwritten text on a whiteboard", [https://fki.tic.heia-fr.ch/databases/iam-on-line-handwriting-database](https://fki.tic.heia-fr.ch/databases/iam-on-line-handwriting-database)
 
 [3] r2rt, "Styles of Truncated Backpropagation", [https://r2rt.com/styles-of-truncated-backpropagation.html](https://r2rt.com/styles-of-truncated-backpropagation.html)
 
-[4] TensorFlow, [https://www.tensorflow.org/](https://www.tensorflow.org/)
+[4] TensorFlow, [https://www.tensorflow.org](https://www.tensorflow.org)
