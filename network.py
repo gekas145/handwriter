@@ -4,8 +4,10 @@ import config as c
 
 class Network(keras.Model):
 
-    def __init__(self, stateful=True, **kwargs):
+    def __init__(self, mean=0.0, std=1.0, stateful=True, **kwargs):
         super().__init__(**kwargs)
+        self.mean = tf.Variable(initial_value=mean, trainable=False)
+        self.std = tf.Variable(initial_value=std, trainable=False)
         self.lstm_layers = [keras.layers.LSTM(c.hidden_dim,
                                               stateful=stateful,
                                               return_sequences=True) for i in range(c.lstm_layers)]
@@ -20,6 +22,11 @@ class Network(keras.Model):
         for lstm in self.lstm_layers:
             lstm.reset_states()
 
+    def _transform_output(self, output, training):
+        if training:
+            return output
+        return output * self.std + self.mean
+
 class Network1(Network):
 
     def call(self, inputs, mask=None, training=True):
@@ -28,7 +35,8 @@ class Network1(Network):
             x = self.lstm_dropout(x, training=training)
             x = self.lstm_layers[i](x, mask=mask)
         x = self.dense_dropout(x, training=training)
-        return self.dense(x)
+        x = self.dense(x)
+        return self._transform_output(x, training)
     
 class Network2(Network):
 
@@ -45,7 +53,8 @@ class Network2(Network):
         x = tf.concat(hidden_states, axis=-1)
         x = self.dense_dropout(x, training=training)
         x = self.dense(x)
-        return clip_gradients(x, c.clip_outputs)
+        x = clip_gradients(x, c.clip_outputs)
+        return self._transform_output(x, training)
 
 
 

@@ -47,9 +47,7 @@ def load_standarization_params(standarization_file="standarization.txt"):
         params = [float(p) for p in params]
     return params
 
-def plot_writing(strokes, standarization_file="standarization.txt", start=None, end=None, points=False):
-    params = load_standarization_params(standarization_file)
-    
+def plot_writing(strokes, start=None, end=None, points=False):
     if start is None:
         start = 0
 
@@ -58,7 +56,7 @@ def plot_writing(strokes, standarization_file="standarization.txt", start=None, 
     
     data = strokes[start:end, :]
 
-    data[:, 0:2] = np.cumsum(data[:, 0:2] * params[1] + params[0], axis=0)
+    data[:, 0:2] = np.cumsum(data[:, 0:2], axis=0)
     data = np.split(data, 
                     np.where(data[:, -1] == 1)[0] + 1)
 

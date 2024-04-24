@@ -2,4 +2,7 @@ data/
 checkpoints/
 optimizers/
 __pycache__/
+model/*
+!model/model.zip
 data_split/
+sandbox*
