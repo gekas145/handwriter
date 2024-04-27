@@ -38,7 +38,6 @@ def mse_loss(y_true, output, mask=None):
     
     return tf.math.reduce_sum(loss)/output.shape[0]
 
-
 def mse_mixture_loss(y_true, output, mask=None):
 
     p, weights, offsets = process_output3(output)

@@ -60,7 +60,6 @@ def clip_gradients(y, clip_value):
     return tf.clip_by_value(dy, -clip_value, clip_value), None
   return y, backward
 
-
 def process_output(output, logits=False):
     # important dimensions
     nbatch = output.shape[0]
@@ -89,7 +88,6 @@ def process_output2(output, logits=False):
         p = tf.sigmoid(p)
 
     return p, output[..., :2]
-
 
 def process_output3(output, logits=False):
     nbatch = output.shape[0]

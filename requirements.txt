@@ -1,0 +1,4 @@
+tqdm==4.66.2
+matplotlib==3.6.2
+tensorflow==2.15.1
+keras==2.15.0

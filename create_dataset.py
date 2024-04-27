@@ -7,6 +7,10 @@ import re
 from tqdm import tqdm
 from dataset import load_data_from_tarfile
 
+# this code operates on tar.gz files of IAM-onDB;
+# operations on archives of that scale are slow;
+# this code was meant more for better understanding of tarfile api than for speed
+
 def parse_xml(xml_file):
     strokes = []
 
@@ -50,7 +54,6 @@ def prepare_data(archive_in_name, archive_out_name):
 
     print("XML parsing ready")
 
-
 def standarize_and_save(file_names, data, archive_name, mean, std):
 
     with tarfile.open(archive_name, "w:gz") as archive:
@@ -61,6 +64,8 @@ def standarize_and_save(file_names, data, archive_name, mean, std):
 
 
 if __name__ == "__main__":
+    print("Preparing dataset...")
+
     # # create preprocessed dataset
     prepare_data("data/lineStrokes-all.tar.gz", "data/online_handwriting.tar.gz")
 
@@ -77,8 +82,8 @@ if __name__ == "__main__":
     with open("data_split/train.txt", "w") as f:
         f.write("\n".join([files[idxs[i]] for i in range(div+1, len(files))]))
 
-    # # standarize
-    print("Standarizing data...")
+    # # estimate offsets standarization params
+    print("Estimating standarization params...")
     dev_names, dev_data = load_data_from_tarfile("data_split/dev.txt", "data/online_handwriting.tar.gz")
     train_names, train_data = load_data_from_tarfile("data_split/train.txt", "data/online_handwriting.tar.gz")
 
@@ -88,13 +93,13 @@ if __name__ == "__main__":
     with open("standarization.txt", "w") as f:
         f.write("Mean,Std\n" + str(mean) + "," + str(std_dev))
     
-    print("Standarization ready")
+    print("Standarization params ready")
     
     # # unpack before training for faster loading time
-    print("Saving standarized data...")
+    print("Data standarizing and saving...")
     standarize_and_save(dev_names, dev_data, "data/online_handwriting_dev.tar.gz", mean, std_dev)
     standarize_and_save(train_names, train_data, "data/online_handwriting_train.tar.gz", mean, std_dev)
-    print("Standarized data saved")
+    print("Data standarized and saved")
 
     print("Dataset ready")
 

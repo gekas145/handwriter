@@ -8,6 +8,7 @@ from dataset import plot_writing, load_data_from_folder, OnlineHandwritingDatase
 # unzip the model first
 model = keras.models.load_model("model/model.keras")
 
+# needs create_dataset.py to be run first
 _, data = load_data_from_folder("data_split/train.txt", "data/online_handwriting_train", 15*c.batch_size)
 dataset = OnlineHandwritingDataset(data)
 
@@ -31,5 +32,5 @@ for i in range(200):
 
 for i in range(c.batch_size):
     plot_writing(strokes[i, num_init_steps:, :].numpy())
-    # plot_writing(X[i, ...])
+
 
