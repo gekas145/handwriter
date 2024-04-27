@@ -17,7 +17,7 @@ strokes = X[:, 0:num_init_steps, :]
 
 stroke_temp = 1.0
 
-model(strokes)
+model(strokes, training=False)
 for i in range(200):
 
     p, offsets = process_output2(model(strokes[:, -1, :][:, np.newaxis, :], training=False), logits=True)

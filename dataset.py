@@ -39,7 +39,7 @@ class OnlineHandwritingDataset(tf.keras.utils.Sequence):
     def on_epoch_end(self):
         np.random.shuffle(self.data)
 
-def load_standarization_params(standarization_file="standarization.txt"):
+def load_standarization_params(standarization_file):
     with open(standarization_file) as f:
         params = f.readlines()[1]
         params = re.sub("\n$", "", params)
@@ -47,7 +47,7 @@ def load_standarization_params(standarization_file="standarization.txt"):
         params = [float(p) for p in params]
     return params
 
-def plot_writing(strokes, standarization_file="standarization.txt", start=None, end=None, points=False):
+def plot_writing(strokes, standarization_file="model/standarization.txt", start=None, end=None, points=False):
     params = load_standarization_params(standarization_file)
     
     if start is None:

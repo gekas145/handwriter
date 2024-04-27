@@ -6,8 +6,6 @@ ndistr = 20
 input_dim = 3
 hidden_dim = 512
 lstm_layers = 2
-# output_dim = 6 * ndistr + 1
-# output_dim = 3 * ndistr + 1
 output_dim = 3
 
 # training data
