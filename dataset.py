@@ -58,7 +58,7 @@ def plot_writing(strokes, standarization_file="model/standarization.txt", start=
     
     data = strokes[start:end, :]
 
-    data[:, 0:2] = np.cumsum(data[:, 0:2], axis=0)
+    data[:, 0:2] = np.cumsum(data[:, 0:2] * params[1] + params[0], axis=0)
     data = np.split(data, 
                     np.where(data[:, -1] == 1)[0] + 1)
 
