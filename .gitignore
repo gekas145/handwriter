@@ -4,5 +4,7 @@ optimizers/
 model/
 !model/*.zip
 __pycache__/
+model/*
+!model/model.zip
 data_split/
-sandbox.*
+sandbox*
