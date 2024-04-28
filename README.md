@@ -8,7 +8,7 @@ The idea is heavily based on [1], but some things were simplified:
 
 2. L2 loss for coordinates + entropy loss were used instead of mixed density loss because of greater numerical stability and faster calculation.
 
-3. Dropout was used as regularization. No weight noise was applied, although it could be crucial, as suggested in [2].
+3. Dropout was used as regularization. No weight noise was applied, although it could be crucial for better inference performance, as suggested in [2].
 
 4. Network was trained only on subset of available data and had 2(instead of 3) LSTM layers.
 

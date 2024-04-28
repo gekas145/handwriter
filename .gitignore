@@ -1,11 +1,9 @@
 data/
+data_split/
 checkpoints/
 optimizers/
 model/
 !model/*.zip
 !model/standarization.txt
 __pycache__/
-model/*
-!model/model.zip
-data_split/
 sandbox*
