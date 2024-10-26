@@ -16,7 +16,7 @@ Final network had around 3.7M parameters and could produce good samples of very 
 
 ## Examples
 
-Here are some examples of network outputs, generated at different smoothness parameters.
+Here are some examples of network outputs, generated at different smoothness parameters. The sentences come from test dataset and were not seen during training.
 
 ![examples1](./images/examples1.png)
 
@@ -24,7 +24,7 @@ Smoothness reduces variance in (x, y)-coordinates, predicted by network. By sett
 
 Although [1] demonstrates readable samples generated with no(zero) smoothness, this implementation produces poor results when no smoothness is applied. So it is recommended to set smoothness at around 1.5 and generate several samples for one sentence in order to get good results quick - usually no more than 10 are needed to get a set with several well written examples.
 
-The trained network is stored under `[handwriting-synthesis/network/](./handwriting-synthesis/network/)`.
+The trained network is stored under [handwriting-synthesis/network/](./handwriting-synthesis/network/).
 
 ## References:
 
