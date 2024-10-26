@@ -1,35 +1,37 @@
 # handwriter
 
-This repo contains implementation of deep recurrent network trained to generate human-like handwriting. 
+This repo contains implementation of a deep recurrent network trained to generate human-like handwriting. 
 
-The idea is heavily based on [1], but some things were simplified:
+It is based on article by Alex Graves "Generating Sequences With Recurrent Neural networkworks".
 
-1. Network predicted exact (x, y) offset coordinates of next point and probability of stroke, thus having the output dimension of 3.
+![examples](./images/examples.png)
 
-2. L2 loss for coordinates + entropy loss were used instead of mixed density loss because of greater numerical stability and faster calculation.
+## How does it work
 
-3. Dropout was used as regularization. No weight noise was applied, although it could be crucial for better inference performance, as suggested in [2].
+When writing, pen movement can be described by recording its coordinates on drawing board, e.g. every t milliseconds. The network is then trained to predict the coordinates (x, y) of the next point relative to current point, given what it predicted so far and one-hot encoded sentences, it is trying to write. Network does it by using attention mechanism on one-hot encoded sentences and predicting the distribution(which is a 2D Gaussian mixture) of offset coordinates (x, y) for the next point. The point coordinates can be then sampled from this distribution and fed to the network in order to continue handwriting generation. More details on network architecture can be found in [1].
 
-4. Network was trained only on subset of available data and had 2(instead of 3) LSTM layers.
+The network was trained on online handwriting dataset [2] using Adam [3](in [1] the rmsprop was used). Network and training loop were implemented in python deep learning library - tensorflow [4].
 
-The model was trained on online handwriting dataset [3] using a subset of randomly drawn 8k samples as train dataset. The training was conducted using truncated backpropagation(named "tensorflow style" in [4]) in order to save memory. Random noise was added to training data to make network more stable at inference stage. Everything was implemented in python tensorflow [5].
+Final network had around 3.7M parameters and could produce good samples of very much human-like handwriting.
 
-Final model had around 3M parameters. Considering its limitation in comparison with model from [1], it still has provided some interesting results. The trained model demonstrated ability to generate readable letters, sometimes even placing them in sensible order. Below are 6 sequences of length 200, generated after model had seen sequences from training data of length 50(not shown).
+## Examples
 
-![samples](./photos/samples.png)
+Here are some examples of network outputs, generated at different smoothness parameters.
 
-All letters are divided clearly most probably because of end of stroke penalty set too high.
+![examples1](./images/examples1.png)
 
-The trained model is stored under `model/model.zip`.
+Smoothness reduces variance in (x, y)-coordinates, predicted by network. By setting it high one can get more stable and, well, smooth predictions. More details on it can be found in [1].
 
-References:
+Although [1] demonstrates readable samples generated with no(zero) smoothness, this implementation produces poor results when no smoothness is applied. So it is recommended to set smoothness at around 1.5 and generate several samples for one sentence in order to get good results quick - usually no more than 10 are needed to get a set with several well written examples.
 
-[1] Graves A., "Generating Sequences With Recurrent Neural Networks", [https://arxiv.org/pdf/1308.0850.pdf](https://arxiv.org/pdf/1308.0850.pdf)
+The trained network is stored under `[handwriting-synthesis/network/](./handwriting-synthesis/network/)`.
 
-[2] Hinton G. et al., "Neural Networks for Machine Learning"(Lecture 9a), [https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec9.pdf](https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec9.pdf)
+## References:
 
-[3] Liwicki M. and Bunke H., "IAM-onDB - an on-line English sentence database acquired from handwritten text on a whiteboard", [https://fki.tic.heia-fr.ch/databases/iam-on-line-handwriting-database](https://fki.tic.heia-fr.ch/databases/iam-on-line-handwriting-database)
+[1] Graves A., "Generating Sequences With Recurrent Neural networkworks", [https://arxiv.org/pdf/1308.0850.pdf](https://arxiv.org/pdf/1308.0850.pdf)
 
-[4] r2rt, "Styles of Truncated Backpropagation", [https://r2rt.com/styles-of-truncated-backpropagation.html](https://r2rt.com/styles-of-truncated-backpropagation.html)
+[2] Liwicki M. and Bunke H., "IAM-onDB - an on-line English sentence database acquired from handwritten text on a whiteboard", [https://fki.tic.heia-fr.ch/databases/iam-on-line-handwriting-database](https://fki.tic.heia-fr.ch/databases/iam-on-line-handwriting-database)
 
-[5] TensorFlow, [https://www.tensorflow.org](https://www.tensorflow.org)
+[3] Kingma D. and Ba J., "Adam: A Method For Stochastic Optimization" [https://arxiv.org/pdf/1412.6980](https://arxiv.org/pdf/1412.6980)
+
+[4] TensorFlow, [https://www.tensorflow.org](https://www.tensorflow.org)
