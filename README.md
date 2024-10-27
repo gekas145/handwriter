@@ -10,7 +10,7 @@ It is based on "Generating Sequences With Recurrent Neural Networks"<sup>[1](#re
 
 When writing, pen movement can be described by recording its coordinates on drawing board, e.g. every t milliseconds. The network is then trained to predict the coordinates (x, y) of the next point relative to current point, given what it predicted so far and one-hot encoded sentences, it is trying to write. Network does it by using attention mechanism on one-hot encoded sentences and predicting the distribution(which is a 2D Gaussian mixture) of offset coordinates (x, y) for the next point. The point coordinates can be then sampled from this distribution and fed to the network in order to continue handwriting generation. More details on network architecture can be found in original article<sup>[1](#references)</sup>.
 
-The network was trained on online handwriting dataset<sup>[2](#references)</sup> using Adam<sup>[3]</sup>(#references)(in article<sup>[1](#references)</sup> RMSprop was used). Network and training loop were implemented in python deep learning library - tensorflow<sup>[4](#references)</sup>.
+The network was trained on online handwriting dataset<sup>[2](#references)</sup> using Adam<sup>[3](#references)</sup>(in article<sup>[1](#references)</sup> RMSprop was used). Network and training loop were implemented in python deep learning library - tensorflow<sup>[4](#references)</sup>.
 
 Final network had around 3.7M parameters and could produce good samples of very much human-like handwriting.
 
