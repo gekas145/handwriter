@@ -20,7 +20,7 @@ Here are some examples of network outputs, generated at different smoothness par
 
 ![examples1](./images/examples1.png)
 
-Smoothness reduces variance in (x, y)-coordinates, predicted by network. By setting it high one can get more stable and, well, smooth predictions. More details on it can be found in [1].
+Smoothness reduces variance in (x, y)-coordinates, predicted by network. By setting it high one can get more stable and, well, smooth predictions. More details on it can be found in [1](#references).
 
 Although [1](#references) demonstrates readable samples generated with no(zero) smoothness, this implementation produces poor results when no smoothness is applied. So it is recommended to set smoothness at around 1.5 and generate several samples for one sentence in order to get good results quick - usually no more than 10 are needed to get a set with several well written examples.
 
