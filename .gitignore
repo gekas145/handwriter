@@ -1,5 +1,4 @@
 data/
-data_split/
 checkpoints/
 optimizers/
 __pycache__/
